@@ -77,7 +77,7 @@ public class Wheel extends PIDSubsystem
     @Override
     protected void usePIDOutput(double output)
     {
-        wheelTalon.set(encoder.getRate() + scale(encoder.getRate(), output));
+        wheelTalon.set(scale(encoder.getRate(), output));
     }
 
     /**
@@ -87,7 +87,7 @@ public class Wheel extends PIDSubsystem
      *            the actual speed of the wheel
      * @param target
      *            the target speed for the wheel to reach
-     * @return the amount the speed of the wheel should be changed
+     * @return the the speed the wheel should be set to
      */
     private double scale(double current, double target)
     {
