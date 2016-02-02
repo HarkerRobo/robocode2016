@@ -1,7 +1,8 @@
 package org.harker.robotics.subsystems;
 
-import org.harker.robotics.RobotMap.DT;
+import org.harker.robotics.RobotMap;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -18,24 +19,26 @@ public class PIDDriveTrain extends Subsystem
     private static Wheel rightBack;
     private static Wheel leftFront;
     private static Wheel rightFront;
+    
+    private static Encoder leftEncoder;
+    private static Encoder rightEncoder;
 
     /**
-     * creates a new PIDDriveTrain with wheels at the default ports
+     * Creates a new PIDDriveTrain with wheels at the default ports. 
      */
     public PIDDriveTrain()
     {
-        leftBack = new Wheel(DT.TALON_LB_CHANNEL, DT.LB_ENCODER_A_CHANNEL,
-                DT.LB_ENCODER_B_CHANNEL);
-        rightBack = new Wheel(DT.TALON_RB_CHANNEL, DT.RB_ENCODER_A_CHANNEL,
-                DT.RB_ENCODER_B_CHANNEL);
-        leftFront = new Wheel(DT.TALON_LF_CHANNEL, DT.LF_ENCODER_A_CHANNEL,
-                DT.LF_ENCODER_B_CHANNEL);
-        rightFront = new Wheel(DT.TALON_RF_CHANNEL, DT.RF_ENCODER_A_CHANNEL,
-                DT.RF_ENCODER_B_CHANNEL);
+    	leftEncoder = new Encoder(RobotMap.DT_ENCODER_L_CHANNEL_A, RobotMap.DT_ENCODER_L_CHANNEL_B);
+    	rightEncoder = new Encoder(RobotMap.DT_ENCODER_R_CHANNEL_A, RobotMap.DT_ENCODER_R_CHANNEL_B);
+        
+    	leftBack = new Wheel(RobotMap.DT_TALON_LB_CHANNEL, leftEncoder);
+        rightBack = new Wheel(RobotMap.DT_TALON_RB_CHANNEL, rightEncoder);
+        leftFront = new Wheel(RobotMap.DT_TALON_LF_CHANNEL, leftEncoder);
+        rightFront = new Wheel(RobotMap.DT_TALON_RF_CHANNEL, rightEncoder);
     }
 
     /**
-     * sets the speeds of all four wheels
+     * Sets the speeds of all four wheels. 
      * 
      * @param leftBack
      *            the speed for the left back wheel
@@ -55,7 +58,7 @@ public class PIDDriveTrain extends Subsystem
     }
 
     /**
-     * sets the speed of the right wheels together and left wheels together
+     * Sets the speed of the right wheels together and left wheels together. 
      * 
      * @param leftSpeed
      *            the speed for the two right wheels
@@ -78,7 +81,7 @@ public class PIDDriveTrain extends Subsystem
     }
 
     /**
-     * sets the speed of the two left wheels
+     * Sets the speed of the two left wheels. 
      * 
      * @param speed
      *            the speed for the wheels
@@ -90,7 +93,7 @@ public class PIDDriveTrain extends Subsystem
     }
 
     /**
-     * sets the speed of the two right wheels
+     * Sets the speed of the two right wheels. 
      * 
      * @param speed
      *            the speed for the wheels
@@ -102,7 +105,7 @@ public class PIDDriveTrain extends Subsystem
     }
 
     /**
-     * sets the speed of the two front wheels
+     * Sets the speed of the two front wheels. 
      * 
      * @param speed
      *            the speed for the wheels
@@ -114,7 +117,7 @@ public class PIDDriveTrain extends Subsystem
     }
 
     /**
-     * sets the speed of the two back wheels
+     * Sets the speed of the two back wheels. 
      * 
      * @param speed
      *            the speed for the wheels
@@ -123,26 +126,5 @@ public class PIDDriveTrain extends Subsystem
     {
         leftBack.set(speed);
         rightBack.set(speed);
-    }
-
-    /**
-     * finds the amount to scale a wheel to get to the target
-     * 
-     * @param current
-     *            the actual speed of the wheel
-     * @param target
-     *            the target speed for the wheel to reach
-     * @return the amount the speed of the wheel should be changed
-     */
-    public double scale(double current, double target)
-    {
-        if (Math.abs(target - current) <= DT.THRESHOLD)
-        {
-            return target;
-        }
-        else
-            return current
-                    + ((DT.MAX_ACCELERATION) * ((target - current) / Math
-                            .abs(target - current)));
     }
 }
