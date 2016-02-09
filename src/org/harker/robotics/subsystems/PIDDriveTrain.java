@@ -30,7 +30,6 @@ public class PIDDriveTrain extends Subsystem
     {
     	leftEncoder = new Encoder(RobotMap.DT_ENCODER_L_CHANNEL_A, RobotMap.DT_ENCODER_L_CHANNEL_B);
     	rightEncoder = new Encoder(RobotMap.DT_ENCODER_R_CHANNEL_A, RobotMap.DT_ENCODER_R_CHANNEL_B);
-        
     	leftBack = new Wheel(RobotMap.DT_TALON_LB_CHANNEL, leftEncoder);
         rightBack = new Wheel(RobotMap.DT_TALON_RB_CHANNEL, rightEncoder);
         leftFront = new Wheel(RobotMap.DT_TALON_LF_CHANNEL, leftEncoder);
@@ -76,8 +75,6 @@ public class PIDDriveTrain extends Subsystem
      */
     public void initDefaultCommand()
     {
-        // Set the default command for a subsystem here.
-        // setDefaultCommand(new MySpecialCommand());
     }
 
     /**

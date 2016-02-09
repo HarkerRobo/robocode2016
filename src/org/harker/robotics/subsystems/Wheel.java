@@ -34,12 +34,20 @@ public class Wheel extends PIDSubsystem
     {
         this(talonChannel, new Encoder(encoderChannelA, encoderChannelB));
     }
-    
+
+    /**
+     * Creates a new wheel with the specified talon channel and encoder
+     * 
+     * @param talonChannel
+     *            the channel of the wheel's talon
+     * @param e
+     *            the encoder for the wheel
+     */
     public Wheel(int talonChannel, Encoder e)
     {
-    	super(P, I, D);
-    	this.enable();
-    	this.setOutputRange(-1.0, 1.0);
+        super(P, I, D);
+        this.enable();
+        this.setOutputRange(-1.0, 1.0);
         wheelTalon = new Talon(talonChannel);
         encoder = e;
     }
@@ -96,7 +104,7 @@ public class Wheel extends PIDSubsystem
             return target;
         }
         else
-            return current
-                    + RobotMap.DT_MAX_ACCELERATION * Math.signum(target - current);
+            return current + RobotMap.DT_MAX_ACCELERATION
+                    * Math.signum(target - current);
     }
 }
