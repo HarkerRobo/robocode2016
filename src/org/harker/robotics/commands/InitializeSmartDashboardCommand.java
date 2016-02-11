@@ -1,4 +1,4 @@
-package org.harker.robotics.harkerrobolib.commands;
+package org.harker.robotics.commands;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * @author joelmanning
+ * @verision 0.1
  */
 public class InitializeSmartDashboardCommand extends Command
 {

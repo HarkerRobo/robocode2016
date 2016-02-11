@@ -63,6 +63,7 @@ public class WebCamMain {
         // Create the panel used to display the image and feature tracks
         ImagePanel gui = new ImagePanel();
         gui.setPreferredSize(webcam.getViewSize());
+        BufferedImage bi = new BufferedImage(I, height, imageType)
         ShowImages.showWindow(gui,"KLT Tracker",true);
         Point2D_I32[] past = null;
         //int minimumTracks = 100;
