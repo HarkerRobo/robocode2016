@@ -1,6 +1,7 @@
 package org.harker.robotics.subsystems;
 
 import org.harker.robotics.RobotMap;
+import org.harker.robotics.commands.ManualDriveCommand;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
@@ -20,7 +21,7 @@ public class PIDDriveTrain extends Subsystem
     private static Wheel leftFront;
     private static Wheel rightFront;
     
-    private static Encoder leftEncoder;
+    public static Encoder leftEncoder;
     private static Encoder rightEncoder;
 
     /**
@@ -29,11 +30,11 @@ public class PIDDriveTrain extends Subsystem
     public PIDDriveTrain()
     {
     	leftEncoder = new Encoder(RobotMap.DT_ENCODER_L_CHANNEL_A, RobotMap.DT_ENCODER_L_CHANNEL_B);
-    	rightEncoder = new Encoder(RobotMap.DT_ENCODER_R_CHANNEL_A, RobotMap.DT_ENCODER_R_CHANNEL_B);
-    	leftBack = new Wheel(RobotMap.DT_TALON_LB_CHANNEL, leftEncoder);
-        rightBack = new Wheel(RobotMap.DT_TALON_RB_CHANNEL, rightEncoder);
-        leftFront = new Wheel(RobotMap.DT_TALON_LF_CHANNEL, leftEncoder);
-        rightFront = new Wheel(RobotMap.DT_TALON_RF_CHANNEL, rightEncoder);
+//    	rightEncoder = new Encoder(RobotMap.DT_ENCODER_R_CHANNEL_A, RobotMap.DT_ENCODER_R_CHANNEL_B);
+    	leftBack = new Wheel(RobotMap.DT_TALON_LB_CHANNEL);
+        rightBack = new Wheel(RobotMap.DT_TALON_RB_CHANNEL);
+        leftFront = new Wheel(RobotMap.DT_TALON_LF_CHANNEL);
+        rightFront = new Wheel(RobotMap.DT_TALON_RF_CHANNEL);
     }
 
     /**
@@ -71,10 +72,11 @@ public class PIDDriveTrain extends Subsystem
     }
 
     /**
-     * @deprecated this method is not currently being used
+     * 
      */
     public void initDefaultCommand()
     {
+    	setDefaultCommand(new ManualDriveCommand());
     }
 
     /**

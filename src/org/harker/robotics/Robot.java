@@ -5,8 +5,12 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
 import org.harker.robotics.commands.ExampleCommand;
+import org.harker.robotics.harkerrobolib.commands.InitializeSmartDashboardCommand;
 import org.harker.robotics.subsystems.ExampleSubsystem;
+import org.harker.robotics.subsystems.PIDDriveTrain;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -20,8 +24,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+	public static final PIDDriveTrain drivetrain = new PIDDriveTrain();
 	public static OI oi;
-
+	
+	
+	InitializeSmartDashboardCommand initSD;
     Command autonomousCommand;
     SendableChooser chooser;
 
@@ -35,6 +42,7 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Default Auto", new ExampleCommand());
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+        initSD = new InitializeSmartDashboardCommand();
     }
 	
 	/**
@@ -61,6 +69,7 @@ public class Robot extends IterativeRobot {
 	 */
     public void autonomousInit() {
         autonomousCommand = (Command) chooser.getSelected();
+        initSD.start();
         
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
@@ -90,6 +99,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        initSD.start();
     }
 
     /**
