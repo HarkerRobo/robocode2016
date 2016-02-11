@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
+import org.harker.robotics.commands.AutonomousCommand;
 import org.harker.robotics.commands.ExampleCommand;
 import org.harker.robotics.harkerrobolib.commands.InitializeSmartDashboardCommand;
 import org.harker.robotics.subsystems.ExampleSubsystem;
@@ -26,9 +27,8 @@ public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static final PIDDriveTrain drivetrain = new PIDDriveTrain();
 	public static OI oi;
-	
-	
 	InitializeSmartDashboardCommand initSD;
+	public static Robot robot;
     Command autonomousCommand;
     SendableChooser chooser;
 
@@ -37,6 +37,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+    	robot = this;
 		oi = new OI();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new ExampleCommand());
@@ -68,8 +69,9 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-        autonomousCommand = (Command) chooser.getSelected();
-        initSD.start();
+    	robot = this;
+    	autonomousCommand = new AutonomousCommand();
+    	initSD.start();
         
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
@@ -98,6 +100,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
+    	robot = this;
         if (autonomousCommand != null) autonomousCommand.cancel();
         initSD.start();
     }
