@@ -13,9 +13,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class InitializeSmartDashboardCommand extends Command
 {
-    public static List<String> defenses = Arrays.asList("portcullis",
-            "cheval de frise", "moat", "ramparts", "drawbridge", "sallyport",
-            "rock wall", "rough terrain", "low bar");
+    public static List<String> defenses = Arrays.asList("Portcullis",
+            "Cheval de Frise", "Moat", "Ramparts", "Drawbridge", "Sallyport",
+            "Rock Wall", "Rough Terrain");
+    public static final String DEFENSE = "Dfs";
 
     public InitializeSmartDashboardCommand()
     {
@@ -29,15 +30,16 @@ public class InitializeSmartDashboardCommand extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
+    	System.out.println("Called");
         SendableChooser defense1 = new SendableChooser();
-        defense1.addDefault("low bar", "low bar");
-        SmartDashboard.putData("Defense 1", defense1);
+        defense1.addDefault("Low Bar", "Low Bar");
+        SmartDashboard.putData(DEFENSE + " 1", defense1);
         for(int i = 2; i < 6; i++){
             SendableChooser defense = new SendableChooser();
             for(String s: defenses){
                 defense.addObject(s, s);
             }
-            SmartDashboard.putData("Defense " + i, defense);
+            SmartDashboard.putData(DEFENSE + " " + i, defense);
         }
         SendableChooser position = new SendableChooser();
         for(int i = 1; i < 6; i++){

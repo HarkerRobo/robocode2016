@@ -20,7 +20,7 @@ public class ManualDriveCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        (new TankDriveCommand(Robot.oi.getGamepad().getLeftY(), Robot.oi.getGamepad().getRightY())).start();
+        (new TankDriveCommand(OI.gamepad.getLeftY(), OI.gamepad.getRightY())).start();
     }
 
     // Make this return true when this Command no longer needs to run execute()
