@@ -48,8 +48,14 @@ public class DriveDistanceCommand extends Command {
     protected double currentDistance(){
         return (Robot.drivetrain.getLeftEncoder().getDistance() + Robot.drivetrain.getRightEncoder().getDistance())/2.0;
     }
+    
     protected double remainingDistance()
     {
         return targetDistance - currentDistance();
+    }
+    
+    public static double inchesToEncoder(double inches){
+        //TODO figure out what units the encoder is in
+        return meters;
     }
 }

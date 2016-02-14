@@ -1,20 +1,23 @@
 package org.harker.robotics.commands;
 
 import org.harker.robotics.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * @author joelmanning
  * @version 0.1
  */
-public class PassDefenseCommand extends Command {
+public class PassDefenseCommand extends CommandGroup {
     
     public static final boolean[] passable = new boolean[InitializeSmartDashboardCommand.defenses.size()];
     
     public PassDefenseCommand(int defense) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.drivetrain);
+        //requires(Robot.drivetrain);
+        addSequential(new DriveDistanceCommand(DriveDistanceCommand.inchesToEncoder(48/* the length of a base*/)));
     }
 
     // Called just before this Command runs the first time
@@ -28,7 +31,7 @@ public class PassDefenseCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

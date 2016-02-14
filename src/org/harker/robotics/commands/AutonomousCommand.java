@@ -7,9 +7,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class AutonomousCommand extends CommandGroup {
-    
+
+    public static final boolean PREFERRED_DIRECTION = SwitchDefenseCommand.LEFT;
     public  AutonomousCommand() {
-    	//addParallel(new ProcessImageCommand());
+        //addParallel(new ProcessImageCommand());
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -31,10 +32,20 @@ public class AutonomousCommand extends CommandGroup {
             defenses[i] = PassDefenseCommand.getDefenseID(SmartDashboard.getString(InitializeSmartDashboardCommand.DEFENSE + (int)(i + 1)));
         }
         int position = Integer.parseInt(SmartDashboard.getString("Starting Robot Position"));
-        //TODO choose a defense
-        addSequential(new SwitchDefenseCommand(false, 0));
-        //TODO find the defense you are in front of
-        addSequential(new PassDefenseCommand(0));
+        int targetPos = -1;
+        for(int i = 0; i < 5 && targetPos == -1; i++){
+            for(int j = 1; j > -2 && targetPos == -1; j -= 2){
+                int target = position + SwitchDefenseCommand.sign(PREFERRED_DIRECTION);
+                if(target > -1 && target < 6){
+                    if(PassDefenseCommand.passable(defenses[target])){
+                        targetPos = target;
+                    }
+                }
+            }
+        }
+        int move = targetPos - position;
+        addSequential(new SwitchDefenseCommand(Math.signum(move) == 1.0, Math.abs(move)));
+        addSequential(new PassDefenseCommand(defenses[targetPos]));
         //TODO make TurnToGoal understand what angle the goal is or use processingutil
         addSequential(new TurnToGoalCommand());
     }
