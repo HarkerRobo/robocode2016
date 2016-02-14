@@ -40,11 +40,11 @@ public class PassDefenseCommand extends Command {
     protected void interrupted() {
     }
     
-    public int getDefenseID(String defense){
+    public static int getDefenseID(String defense){
         return InitializeSmartDashboardCommand.defenses.indexOf(defense);
     }
     
-    public boolean passable(int defense){
+    public static boolean passable(int defense){
         return passable[defense];
     }
 }
