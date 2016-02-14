@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class InitializeSmartDashboardCommand extends Command
 {
-    public static List<String> defenses = Arrays.asList("Portcullis",
+    public static List<String> defenses = Arrays.asList("Low Bar", "Portcullis",
             "Cheval de Frise", "Moat", "Ramparts", "Drawbridge", "Sallyport",
             "Rock Wall", "Rough Terrain");
     public static final String DEFENSE = "Dfs";

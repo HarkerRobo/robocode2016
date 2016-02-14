@@ -1,18 +1,14 @@
-
-package org.harker.robotics;
-
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-<<<<<<< HEAD
-=======
+import org.harker.robotics.OI;
 import org.harker.robotics.commands.AutonomousCommand;
->>>>>>> origin/master
 import org.harker.robotics.commands.ExampleCommand;
-import org.harker.robotics.harkerrobolib.commands.InitializeSmartDashboardCommand;
-import org.harker.robotics.subsystems.ExampleSubsystem;
+import org.harker.robotics.commands.InitializeSmartDashboardCommand;
 import org.harker.robotics.subsystems.PIDDriveTrain;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -29,10 +25,11 @@ public class Robot extends IterativeRobot {
 
 	public static final PIDDriveTrain drivetrain = new PIDDriveTrain();
 	public static OI oi;
-	InitializeSmartDashboardCommand initSD;
+	private InitializeSmartDashboardCommand initSD;
 	public static Robot robot;
-    Command autonomousCommand;
-    SendableChooser chooser;
+    private Command autonomousCommand;
+    private SendableChooser chooser;
+    public static Gyro gyro;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -46,6 +43,7 @@ public class Robot extends IterativeRobot {
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
         initSD = new InitializeSmartDashboardCommand();
+        gyro = new ADXRS450_Gyro();
     }
 	
 	/**

@@ -21,7 +21,7 @@ public class PIDDriveTrain extends Subsystem
     private static Wheel leftFront;
     private static Wheel rightFront;
     
-    public static Encoder leftEncoder;
+    private static Encoder leftEncoder;
     private static Encoder rightEncoder;
 
     /**
@@ -125,5 +125,13 @@ public class PIDDriveTrain extends Subsystem
     {
         leftBack.set(speed);
         rightBack.set(speed);
+    }
+    
+    public Encoder getLeftEncoder(){
+        return leftEncoder;
+    }
+    
+    public Encoder getRightEncoder(){
+        return rightEncoder;
     }
 }
