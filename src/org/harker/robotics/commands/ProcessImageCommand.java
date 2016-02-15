@@ -18,6 +18,7 @@ import com.ni.vision.NIVision.Image;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Command;
+import georegression.struct.point.Point2D_I32;
 
 /**
  *
@@ -50,8 +51,9 @@ public class ProcessImageCommand extends Command {
         
         CameraServer.getInstance().setImage(frame);
         
-        List<PointIndex_I32> points = ProcessingUtil.process(in);
-        System.out.println((points == null) ? 0 : points.size());
+        List<Point2D_I32> points = ProcessingUtil.process(in);
+        Robot.robot.setGoal(points);
+        //System.out.println((points == null) ? 0 : points.size());
     }
 
     // Make this return true when this Command no longer needs to run execute()

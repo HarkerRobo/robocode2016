@@ -30,7 +30,9 @@ public class InitializeSmartDashboardCommand extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-    	System.out.println("Called");
+        SendableChooser chooser = new SendableChooser();
+        chooser.addDefault("Default Auto", new AutonomousCommand());
+        SmartDashboard.putData("Auto mode", chooser);
         SendableChooser defense1 = new SendableChooser();
         defense1.addDefault("Low Bar", "Low Bar");
         SmartDashboard.putData(DEFENSE + " 1", defense1);
@@ -42,6 +44,7 @@ public class InitializeSmartDashboardCommand extends Command
             SmartDashboard.putData(DEFENSE + " " + i, defense);
         }
         SendableChooser position = new SendableChooser();
+        position.addObject("Spy", new Integer(0));
         for(int i = 1; i < 6; i++){
             position.addObject("" + i, new Integer(i));
         }
