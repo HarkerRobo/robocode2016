@@ -3,7 +3,8 @@ package org.harker.robotics.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * @author joelmanning
+ * @version
  */
 public class SpyAutonomousCommand extends CommandGroup {
     

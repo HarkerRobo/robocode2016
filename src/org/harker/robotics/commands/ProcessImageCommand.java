@@ -21,7 +21,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import georegression.struct.point.Point2D_I32;
 
 /**
- *
+ * @author 
+ * @version 0.1
  */
 public class ProcessImageCommand extends Command {
 	private int session;

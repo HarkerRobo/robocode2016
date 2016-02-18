@@ -1,17 +1,18 @@
 package org.harker.robotics.commands;
 
-import org.harker.robotics.Robot;
-
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * @author joelmanning
  * @version 0.1
+ * A commandgroup that will execute the commands needed to get through a given defense
  */
 public class PassDefenseCommand extends CommandGroup {
     
     public static final boolean[] passable = new boolean[InitializeSmartDashboardCommand.defenses.size()];
+    public static final double robotLength = 12;
+    public static final double platformLength = 48;
+    public static final double[] defenseAdditionalLengths = { 0 };
     
     public PassDefenseCommand(int defense) {
         // Use requires() here to declare subsystem dependencies
@@ -43,6 +44,10 @@ public class PassDefenseCommand extends CommandGroup {
     protected void interrupted() {
     }
     
+    /**
+     * @param defense the name of the defense
+     * @return the integer representation of that defense, or -1 if it does not exist
+     */
     public static int getDefenseID(String defense){
         return InitializeSmartDashboardCommand.defenses.indexOf(defense);
     }

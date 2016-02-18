@@ -5,7 +5,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * @author joelmanning
+ * @version 0.1
  */
 public class AutonomousCommand extends CommandGroup {
 
@@ -50,10 +51,12 @@ public class AutonomousCommand extends CommandGroup {
             int move = targetPos - position;
             addSequential(new SwitchDefenseCommand(Math.signum(move) == 1.0, Math.abs(move)));
             addSequential(new PassDefenseCommand(defenses[targetPos]));
+            addSequential(new GoToShootingPositionCommand(targetPos));
             //TODO make TurnToGoal understand what angle the goal is or use processingutil
-            addParallel(new ProcessImageCommand());
+            //addParallel(new ProcessImageCommand());
             //TODO decide what we do here, how odd of an angle can we shoot from, do you just want to turn to the goal and shoot or go to the center for better chances?
             addSequential(new TurnToGoalCommand());
+            addSequential(new HighGoalCommand());
         }
     }
 }
