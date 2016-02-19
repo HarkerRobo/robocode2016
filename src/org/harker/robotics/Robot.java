@@ -14,6 +14,7 @@ import org.harker.robotics.commands.ExampleCommand;
 import org.harker.robotics.commands.InitializeSmartDashboardCommand;
 import org.harker.robotics.subsystems.ExampleSubsystem;
 import org.harker.robotics.subsystems.PIDDriveTrain;
+import org.harker.robotics.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,7 +37,7 @@ public class Robot extends IterativeRobot {
     public static Gyro gyro;
     private List<Point2D_I32> currentGoal = new ArrayList<Point2D_I32>();
     private Object lock = new Object();
-    public static ExampleSubsystem shooter;
+    public static Shooter shooter;
 
     /**
      * This function is run when the robot is first started up and should be

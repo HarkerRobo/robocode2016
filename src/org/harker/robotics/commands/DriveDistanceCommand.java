@@ -12,11 +12,13 @@ public class DriveDistanceCommand extends Command {
     public static final double ERROR_MARGIN = 0.2;
     public static final double SLOW_DISTANCE = 1;
     private double targetDistance;
+    int direction;
     
     public DriveDistanceCommand(double distance) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        targetDistance = distance;
+        targetDistance = Math.abs(distance);
+        direction = (int) Math.signum(distance);
     }
 
     // Called just before this Command runs the first time
@@ -27,7 +29,7 @@ public class DriveDistanceCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        double speed = Math.min(1.0, (targetDistance - remainingDistance())/targetDistance);
+        double speed = direction * Math.min(1.0, remainingDistance()/targetDistance);
         Robot.drivetrain.tankDrive(speed, speed);
     }
 
@@ -56,6 +58,6 @@ public class DriveDistanceCommand extends Command {
     
     public static double inchesToEncoder(double inches){
         //TODO figure out what units the encoder is in
-        return meters;
+        return inches;
     }
 }

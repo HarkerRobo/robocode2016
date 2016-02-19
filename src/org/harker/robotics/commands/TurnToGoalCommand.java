@@ -29,6 +29,7 @@ public class TurnToGoalCommand extends Command {
 	private Image frame;
 	private boolean finished = false;
 	public static final double ERROR_MARGIN = 1;
+	public static final double TARGET_DISTANCE = 132;
     public TurnToGoalCommand() {
         frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
         session = NIVision.IMAQdxOpenCamera("cam0",
@@ -68,6 +69,7 @@ public class TurnToGoalCommand extends Command {
         double inchesFromCenter = realHeightU / pixelHeightU * (in.getWidth() / 2 - centerWidth);
         double angleToGoal = Math.atan(inchesFromCenter/inchesToGoal);
         (new TurnAngleCommand(angleToGoal)).start();
+        (new DriveDistanceCommand(inchesToGoal - TARGET_DISTANCE)).start();
     }
 
     // Make this return true when this Command no longer needs to run execute()
