@@ -2,11 +2,15 @@ package org.harker.robotics.commands;
 
 import org.harker.robotics.OI;
 import org.harker.robotics.Robot;
-import org.harker.robotics.subsystems.PIDDriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * @author joelmanning
+ * @version 0.1
+ */
 public class ManualDriveCommand extends Command {
+	
 	private static double DEADZONE = .15;
 	
 	public ManualDriveCommand() {

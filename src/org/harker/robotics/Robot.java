@@ -1,19 +1,26 @@
-
 package org.harker.robotics;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
+import org.harker.robotics.OI;
 import org.harker.robotics.commands.AutonomousCommand;
 import org.harker.robotics.commands.ExampleCommand;
 import org.harker.robotics.commands.InitializeSmartDashboardCommand;
+
 import org.harker.robotics.commands.UpdateSmartDashboardCommand;
 import org.harker.robotics.subsystems.*;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import georegression.struct.point.Point2D_I32;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,17 +31,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static final PIDDriveTrain drivetrain = new PIDDriveTrain();
 	public static final Shooter shooter = new Shooter();
 	public static final Intake intake = new Intake();
 	
 	public static OI oi;
-	InitializeSmartDashboardCommand initSD;
-	UpdateSmartDashboardCommand updateSD;
+	private InitializeSmartDashboardCommand initSD;
+	private UpdateSmartDashboardCommand updateSD;
 	public static Robot robot;
-    Command autonomousCommand;
-    SendableChooser chooser;
+    private Command autonomousCommand;
+    private List<Point2D_I32> currentGoal = new ArrayList<Point2D_I32>();
 
     /**
      * This function is run when the robot is first started up and should be
@@ -43,12 +49,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
     	robot = this;
 		oi = new OI();
-        chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", new ExampleCommand());
-//        chooser.addObject("My Auto", new MyAutoCommand());
-        SmartDashboard.putData("Auto mode", chooser);
         initSD = new InitializeSmartDashboardCommand();
-        System.out.println("Robo Init");
     }
 	
 	/**
@@ -75,8 +76,8 @@ public class Robot extends IterativeRobot {
 	 */
     public void autonomousInit() {
     	robot = this;
-    	autonomousCommand = new AutonomousCommand();
-    	initSD.start();
+        initSD.start();
+    	autonomousCommand = (Command) SmartDashboard.getData("Auto mode");
         
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
@@ -125,5 +126,13 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+    
+    public void setGoal(List<Point2D_I32> goal){
+            currentGoal = goal;
+    }
+    
+    public List<Point2D_I32> getGoal(){
+            return currentGoal;
     }
 }

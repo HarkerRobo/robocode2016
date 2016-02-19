@@ -12,8 +12,12 @@ import org.harker.robotics.harkerrobolib.wrappers.GamepadWrapper;
 public class OI {
     public static GamepadWrapper gamepad = new GamepadWrapper(RobotMap.OI_GAMEPAD_CHANNEL, GamepadWrapper.SETTING_XBOX);
     
+    // Start the command when the button is released  and let it run the command
+    // until it is finished as determined by it's isFinished method.
+    // button.whenReleased(new ExampleCommand());
+    
     public OI() {
-    	
+
     }
 }
 

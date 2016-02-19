@@ -46,7 +46,7 @@ public class ProcessingUtil {
     private static final int MIN_HEIGHT = 10;
     private static final int MIN_WIDTH = 10;
     
-    public static List<PointIndex_I32> process(BufferedImage image) {
+    public static List<Point2D_I32> process(BufferedImage image) {
         // Open a webcam at a resolution close to 640x480
         
         // specify the target's initial location and initialize with the first frame
@@ -163,7 +163,7 @@ public class ProcessingUtil {
         //draws the final conclusion of the program in cyan, then prints it out
         
         
-        return vertexes;
+        return l;
     }
 
     private static Point2D_I32[] fourCorners(List<Point2D_I32> points){

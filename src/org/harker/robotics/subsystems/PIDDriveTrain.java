@@ -3,6 +3,7 @@ package org.harker.robotics.subsystems;
 import org.harker.robotics.RobotMap;
 import org.harker.robotics.commands.ManualDriveCommand;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.NamedSendable;
@@ -22,11 +23,9 @@ public class PIDDriveTrain extends Subsystem
     private static Wheel rightBack;
     private static Wheel leftFront;
     private static Wheel rightFront;
-    
-    private static CANTalon t1;
-    
-    public static Encoder leftEncoder;
+    private static Encoder leftEncoder;
     private static Encoder rightEncoder;
+    private static ADXRS450_Gyro gyro;
 
     /**
      * Creates a new PIDDriveTrain with wheels at the default ports. 
@@ -39,6 +38,7 @@ public class PIDDriveTrain extends Subsystem
         rightBack = new Wheel(RobotMap.DT_TALON_RB_CHANNEL);
         leftFront = new Wheel(RobotMap.DT_TALON_LF_CHANNEL, true);
         rightFront = new Wheel(RobotMap.DT_TALON_RF_CHANNEL);
+        gyro = new ADXRS450_Gyro();
     }
 
     /**
@@ -136,5 +136,21 @@ public class PIDDriveTrain extends Subsystem
     	SmartDashboard.putNumber("DT Left Lower", leftBack.get());
     	SmartDashboard.putNumber("DT Right Upper", rightFront.get());
     	SmartDashboard.putNumber("DT Right Lower", rightBack.get());
+    }
+    
+    public Encoder getLeftEncoder() {
+        return leftEncoder;
+    }
+    
+    public Encoder getRightEncoder(){
+        return rightEncoder;
+    }
+    
+    public double getHeading() {
+    	return gyro.getAngle();
+    }
+    
+    public double getHeadingWrapped() {
+    	return gyro.getAngle() % 360;
     }
 }
