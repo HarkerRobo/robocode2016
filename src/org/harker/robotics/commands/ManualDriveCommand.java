@@ -7,6 +7,7 @@ import org.harker.robotics.subsystems.PIDDriveTrain;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ManualDriveCommand extends Command {
+	private static double DEADZONE = .15;
 	
 	public ManualDriveCommand() {
 		requires(Robot.drivetrain);
@@ -18,7 +19,12 @@ public class ManualDriveCommand extends Command {
 	}
 	
 	protected void execute() {
-		Robot.drivetrain.tankDrive(OI.gamepad.getLeftY(), OI.gamepad.getRightY());
+		double leftSpeed = OI.gamepad.getLeftY();
+		double rightSpeed = OI.gamepad.getRightY();
+		leftSpeed = (Math.abs(leftSpeed) > DEADZONE) ? leftSpeed : 0;
+		rightSpeed = (Math.abs(rightSpeed) > DEADZONE) ? rightSpeed : 0;
+		Robot.drivetrain.tankDrive(leftSpeed, rightSpeed);
+//		Robot.drivetrain.tankDrive(OI.gamepad.getLeftY(), OI.gamepad.getRightY());
 	}
 	
 	protected boolean isFinished() {

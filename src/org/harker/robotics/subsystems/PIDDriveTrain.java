@@ -3,9 +3,12 @@ package org.harker.robotics.subsystems;
 import org.harker.robotics.RobotMap;
 import org.harker.robotics.commands.ManualDriveCommand;
 
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.NamedSendable;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * A drivetrain that manages four PID wheels
@@ -15,11 +18,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class PIDDriveTrain extends Subsystem
 {
-
     private static Wheel leftBack;
     private static Wheel rightBack;
     private static Wheel leftFront;
     private static Wheel rightFront;
+    
+    private static CANTalon t1;
     
     public static Encoder leftEncoder;
     private static Encoder rightEncoder;
@@ -29,11 +33,11 @@ public class PIDDriveTrain extends Subsystem
      */
     public PIDDriveTrain()
     {
-    	leftEncoder = new Encoder(RobotMap.DT_ENCODER_L_CHANNEL_A, RobotMap.DT_ENCODER_L_CHANNEL_B);
+//    	leftEncoder = new Encoder(RobotMap.DT_ENCODER_L_CHANNEL_A, RobotMap.DT_ENCODER_L_CHANNEL_B);
 //    	rightEncoder = new Encoder(RobotMap.DT_ENCODER_R_CHANNEL_A, RobotMap.DT_ENCODER_R_CHANNEL_B);
-    	leftBack = new Wheel(RobotMap.DT_TALON_LB_CHANNEL);
+    	leftBack = new Wheel(RobotMap.DT_TALON_LB_CHANNEL, true);
         rightBack = new Wheel(RobotMap.DT_TALON_RB_CHANNEL);
-        leftFront = new Wheel(RobotMap.DT_TALON_LF_CHANNEL);
+        leftFront = new Wheel(RobotMap.DT_TALON_LF_CHANNEL, true);
         rightFront = new Wheel(RobotMap.DT_TALON_RF_CHANNEL);
     }
 
@@ -125,5 +129,12 @@ public class PIDDriveTrain extends Subsystem
     {
         leftBack.set(speed);
         rightBack.set(speed);
+    }
+    
+    public void toSmartDashboard() {
+    	SmartDashboard.putNumber("DT Left Upper", leftFront.get());
+    	SmartDashboard.putNumber("DT Left Lower", leftBack.get());
+    	SmartDashboard.putNumber("DT Right Upper", rightFront.get());
+    	SmartDashboard.putNumber("DT Right Lower", rightBack.get());
     }
 }

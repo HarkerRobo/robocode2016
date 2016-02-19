@@ -1,4 +1,5 @@
 package org.harker.robotics.vision;
+
 import georegression.struct.point.Point2D_I32;
 
 import java.awt.BasicStroke;
@@ -15,12 +16,7 @@ import boofcv.alg.filter.binary.BinaryImageOps;
 import boofcv.alg.filter.binary.Contour;
 import boofcv.alg.shapes.ShapeFittingOps;
 import boofcv.factory.feature.detect.edge.FactoryEdgeDetectors;
-import boofcv.gui.ListDisplayPanel;
-import boofcv.gui.feature.VisualizeShapes;
-import boofcv.gui.image.ImagePanel;
-import boofcv.gui.image.ShowImages;
 import boofcv.io.image.ConvertBufferedImage;
-import boofcv.io.webcamcapture.UtilWebcamCapture;
 import boofcv.struct.ConnectRule;
 import boofcv.struct.PointIndex_I32;
 import boofcv.struct.image.ImageFloat32;
@@ -158,7 +154,6 @@ public class ProcessingUtil {
             }
             Color c = new Color(r, g, 0);
             g2.setColor(c);
-            VisualizeShapes.drawPolygon(current.getValue().external, true, g2);
             g = Math.max(0, g - 30);
             r = Math.min(255, r + 30);
         }
@@ -262,6 +257,7 @@ public class ProcessingUtil {
     private static int L(){
         return MIN_L;
     }
+    
     private static double whWeight(){
         return weights[0];
     }

@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.harker.robotics.commands.AutonomousCommand;
 import org.harker.robotics.commands.ExampleCommand;
-import org.harker.robotics.harkerrobolib.commands.InitializeSmartDashboardCommand;
-import org.harker.robotics.subsystems.ExampleSubsystem;
-import org.harker.robotics.subsystems.PIDDriveTrain;
+import org.harker.robotics.commands.InitializeSmartDashboardCommand;
+import org.harker.robotics.commands.UpdateSmartDashboardCommand;
+import org.harker.robotics.subsystems.*;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,8 +26,12 @@ public class Robot extends IterativeRobot {
 
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static final PIDDriveTrain drivetrain = new PIDDriveTrain();
+	public static final Shooter shooter = new Shooter();
+	public static final Intake intake = new Intake();
+	
 	public static OI oi;
 	InitializeSmartDashboardCommand initSD;
+	UpdateSmartDashboardCommand updateSD;
 	public static Robot robot;
     Command autonomousCommand;
     SendableChooser chooser;
@@ -44,6 +48,7 @@ public class Robot extends IterativeRobot {
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
         initSD = new InitializeSmartDashboardCommand();
+        System.out.println("Robo Init");
     }
 	
 	/**
@@ -101,8 +106,11 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
     	robot = this;
+    	System.out.println("Teleop Init");
         if (autonomousCommand != null) autonomousCommand.cancel();
+        updateSD = new UpdateSmartDashboardCommand();
         initSD.start();
+        updateSD.start();
     }
 
     /**

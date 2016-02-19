@@ -38,20 +38,20 @@ public class ProcessImageCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	NIVision.IMAQdxGrab(session, frame, 1);
-        NIVision.imaqWriteFile(frame, "output.png", null);
-        BufferedImage in = null;
-        
-        try {
-			in = ImageIO.read(new File("output.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        
-        CameraServer.getInstance().setImage(frame);
-        
-        List<PointIndex_I32> points = ProcessingUtil.process(in);
-        System.out.println((points == null) ? 0 : points.size());
+//    	NIVision.IMAQdxGrab(session, frame, 1);
+//        NIVision.imaqWriteFile(frame, "output.png", null);
+//        BufferedImage in = null;
+//        
+//        try {
+//			in = ImageIO.read(new File("output.png"));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//        
+//        CameraServer.getInstance().setImage(frame);
+//        
+//        List<PointIndex_I32> points = ProcessingUtil.process(in);
+//        System.out.println((points == null) ? 0 : points.size());
     }
 
     // Make this return true when this Command no longer needs to run execute()

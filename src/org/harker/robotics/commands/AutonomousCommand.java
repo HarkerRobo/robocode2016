@@ -9,6 +9,7 @@ public class AutonomousCommand extends CommandGroup {
     
     public  AutonomousCommand() {
     	addParallel(new ProcessImageCommand());
+    	//addParallel(new ProcessImageCommand());
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
