@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class PassDefenseCommand extends CommandGroup {
     
-    public static final boolean[] passable = new boolean[InitializeSmartDashboardCommand.defenses.size()];
+    public static final boolean[] passable = { true, false, false, true, true, false, false, true, true };
     public static final double robotLength = 12;
     public static final double platformLength = 48;
     public static final double[] defenseAdditionalLengths = { 0 };
