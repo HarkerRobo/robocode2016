@@ -15,7 +15,7 @@ public class SwitchDefenseCommand extends CommandGroup {
     
     public SwitchDefenseCommand(boolean direction, int num) {
         addSequential(new TurnToAngleCommand(90 * sign(direction)));
-        addSequential(new DriveDistanceCommand(DEFENSE_WIDTH * num));
+        addSequential(new DriveDistanceCommand(1.0, DEFENSE_WIDTH * num));
         addSequential(new TurnToAngleCommand(0));
     }
     public static int sign(boolean bool){

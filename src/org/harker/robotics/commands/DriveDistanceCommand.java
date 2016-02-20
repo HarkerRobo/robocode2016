@@ -12,13 +12,15 @@ public class DriveDistanceCommand extends Command {
     public static final double ERROR_MARGIN = 0.2;
     public static final double SLOW_DISTANCE = 1;
     private double targetDistance;
-    int direction;
+    private int direction;
+    private double speed = 1.0;
     
-    public DriveDistanceCommand(double distance) {
+    public DriveDistanceCommand(double speed, double distance) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         targetDistance = Math.abs(distance);
         direction = (int) Math.signum(distance);
+        this.speed = speed;
     }
 
     // Called just before this Command runs the first time
@@ -29,8 +31,8 @@ public class DriveDistanceCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        double speed = direction * Math.min(1.0, remainingDistance()/targetDistance);
-        Robot.drivetrain.tankDrive(speed, speed);
+        double speeds = direction * Math.min(speed, remainingDistance()/targetDistance);
+        Robot.drivetrain.tankDrive(speeds, speeds);
     }
 
     // Make this return true when this Command no longer needs to run execute()

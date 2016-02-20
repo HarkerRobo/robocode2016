@@ -18,7 +18,7 @@ public class PassDefenseCommand extends CommandGroup {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         //requires(Robot.drivetrain);
-        addSequential(new DriveDistanceCommand(DriveDistanceCommand.inchesToEncoder(48/* the length of a base*/)));
+        addSequential(new DriveDistanceCommand(0.5, DriveDistanceCommand.inchesToEncoder(48/* the length of a base*/)));
     }
 
     // Called just before this Command runs the first time
