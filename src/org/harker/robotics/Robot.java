@@ -40,7 +40,7 @@ public class Robot extends IterativeRobot {
 	private UpdateSmartDashboardCommand updateSD;
 	public static Robot robot;
     private Command autonomousCommand;
-    private List<Point2D_I32> currentGoal = new ArrayList<Point2D_I32>();
+    //private List<Point2D_I32> currentGoal = new ArrayList<Point2D_I32>();
 
     /**
      * This function is run when the robot is first started up and should be

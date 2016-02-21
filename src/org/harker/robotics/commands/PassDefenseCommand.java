@@ -12,7 +12,7 @@ public class PassDefenseCommand extends CommandGroup {
     public static final boolean[] passable = { true, false, false, true, true, false, false, true, true };
     public static final double robotLength = 12;
     public static final double platformLength = 48;
-    public static final double[] defenseAdditionalLengths = { 0 };
+    public static final double[] defenseAdditionalLengths = { 0,  };
     
     public PassDefenseCommand(int defense) {
         // Use requires() here to declare subsystem dependencies
