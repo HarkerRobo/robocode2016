@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class PIDDriveTrain extends Subsystem
 {
+    private static final double DEADZONE = 0.1;
     private static Wheel leftBack;
     private static Wheel rightBack;
     private static Wheel leftFront;
@@ -30,22 +31,22 @@ public class PIDDriveTrain extends Subsystem
     private static Encoder leftEncoder;
     private static Encoder rightEncoder;
     private static Gyro gyro;
-    
     private static DoubleSolenoid leftShifter;
     private static DoubleSolenoid rightShifter;
+    public static double MIN_PERCENT = 0.50;
 
     /**
      * Creates a new PIDDriveTrain with wheels at the default ports. 
      */
     public PIDDriveTrain()
     {
-//    	leftEncoder = new Encoder(RobotMap.DT_ENCODER_L_CHANNEL_A, RobotMap.DT_ENCODER_L_CHANNEL_B);
-//    	rightEncoder = new Encoder(RobotMap.DT_ENCODER_R_CHANNEL_A, RobotMap.DT_ENCODER_R_CHANNEL_B);
-    	leftBack = new Wheel(RobotMap.DT_TALON_LB_CHANNEL, true);
+        //    	leftEncoder = new Encoder(RobotMap.DT_ENCODER_L_CHANNEL_A, RobotMap.DT_ENCODER_L_CHANNEL_B);
+        //    	rightEncoder = new Encoder(RobotMap.DT_ENCODER_R_CHANNEL_A, RobotMap.DT_ENCODER_R_CHANNEL_B);
+        leftBack = new Wheel(RobotMap.DT_TALON_LB_CHANNEL, true);
         rightBack = new Wheel(RobotMap.DT_TALON_RB_CHANNEL);
         leftFront = new Wheel(RobotMap.DT_TALON_LF_CHANNEL, true);
         rightFront = new Wheel(RobotMap.DT_TALON_RF_CHANNEL);
-//        gyro = new ADXRS450_Gyro();
+//        gyro = new AnalogGyro(RobotMap.DT_GYRO_PORT);
         
         leftShifter = new DoubleSolenoid(RobotMap.DT_SHIFT_LEFT_IN, RobotMap.DT_SHIFT_LEFT_OUT);
         rightShifter = new DoubleSolenoid(RobotMap.DT_SHIFT_RIGHT_IN, RobotMap.DT_SHIFT_RIGHT_OUT);
@@ -86,11 +87,33 @@ public class PIDDriveTrain extends Subsystem
     }
 
     /**
+     * A version of tank drive to minimize slippage. If one of the two speeds is less
+     * than a certain percent of the other, the smaller is scaled up to match that 
+     * percentage of that other. If this percentage (MIN_PERCENT) is set to 1, 
+     * this code functions as arcade drive. 
+     * @param leftSpeed The intended speed of the left tread
+     * @param rightSpeed The intended speed of the right tread
+     */
+    public void safeTank(double leftSpeed, double rightSpeed){
+        double left = (leftSpeed > DEADZONE) ? leftSpeed : 0;
+        double right = (rightSpeed > DEADZONE) ? rightSpeed : 0;
+        if(!(leftSpeed == 0 || rightSpeed == 0)) { //Remember what this means Joel?
+            left = Math.signum(leftSpeed) * Math.max(Math.abs(MIN_PERCENT * rightSpeed), Math.abs(leftSpeed));
+            right = Math.signum(rightSpeed) * Math.max(Math.abs(MIN_PERCENT * leftSpeed), Math.abs(rightSpeed));
+        } else { //Else preserve the sign of the nonzero value
+            double sig = Math.signum(leftSpeed) + Math.signum(rightSpeed);
+            left = sig * Math.max(Math.abs(MIN_PERCENT * rightSpeed), Math.abs(leftSpeed));
+            right = sig * Math.max(Math.abs(MIN_PERCENT * leftSpeed), Math.abs(rightSpeed));
+        }     
+        tankDrive(left, right);
+    }
+
+    /**
      * 
      */
     public void initDefaultCommand()
     {
-    	setDefaultCommand(new ManualDriveCommand());
+        setDefaultCommand(new ManualDriveCommand());
     }
 
     /**
@@ -140,34 +163,28 @@ public class PIDDriveTrain extends Subsystem
         leftBack.set(speed);
         rightBack.set(speed);
     }
-    
+
     public void toSmartDashboard() {
-    	SmartDashboard.putNumber("DT Left Upper", leftFront.get());
-    	SmartDashboard.putNumber("DT Left Lower", leftBack.get());
-    	SmartDashboard.putNumber("DT Right Upper", rightFront.get());
-    	SmartDashboard.putNumber("DT Right Lower", rightBack.get());
-//    	SmartDashboard.putData((NamedSendable)solenoid1);
-//    	SmartDashboard.putData((NamedSendable)solenoid2);
-//    	SmartDashboard.putData((NamedSendable)solenoid3);
-//    	SmartDashboard.putData((NamedSendable)solenoid4);
-//    	SmartDashboard.putData((NamedSendable)solenoid5);
-//    	SmartDashboard.putData((NamedSendable)solenoid6);
+        SmartDashboard.putNumber("DT Left Upper", leftFront.get());
+        SmartDashboard.putNumber("DT Left Lower", leftBack.get());
+        SmartDashboard.putNumber("DT Right Upper", rightFront.get());
+        SmartDashboard.putNumber("DT Right Lower", rightBack.get());
     }
-    
+
     public Encoder getLeftEncoder() {
         return leftEncoder;
     }
-    
+
     public Encoder getRightEncoder(){
         return rightEncoder;
     }
-    
+
     public double getHeading() {
-    	return gyro.getAngle();
+        return gyro.getAngle();
     }
-    
+
     public double getHeadingWrapped() {
-    	return gyro.getAngle() % 360;
+        return gyro.getAngle() % 360;
     }
     
     public void toggleLeftShift() {

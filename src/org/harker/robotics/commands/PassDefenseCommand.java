@@ -12,13 +12,13 @@ public class PassDefenseCommand extends CommandGroup {
     public static final boolean[] passable = { true, false, false, true, true, false, false, true, true };
     public static final double robotLength = 12;
     public static final double platformLength = 48;
-    public static final double[] defenseAdditionalLengths = { 0 };
+    public static final double[] defenseAdditionalLengths = { 0,  };
     
     public PassDefenseCommand(int defense) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         //requires(Robot.drivetrain);
-        addSequential(new DriveDistanceCommand(DriveDistanceCommand.inchesToEncoder(48/* the length of a base*/)));
+        addSequential(new DriveDistanceCommand(0.5, DriveDistanceCommand.inchesToEncoder(48/* the length of a base*/)));
     }
 
     // Called just before this Command runs the first time

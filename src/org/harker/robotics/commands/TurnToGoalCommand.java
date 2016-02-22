@@ -69,7 +69,7 @@ public class TurnToGoalCommand extends Command {
         double inchesFromCenter = realHeightU / pixelHeightU * (in.getWidth() / 2 - centerWidth);
         double angleToGoal = Math.atan(inchesFromCenter/inchesToGoal);
         (new TurnAngleCommand(angleToGoal)).start();
-        (new DriveDistanceCommand(inchesToGoal - TARGET_DISTANCE)).start();
+        (new DriveDistanceCommand(1, inchesToGoal - TARGET_DISTANCE)).start();
     }
 
     // Make this return true when this Command no longer needs to run execute()

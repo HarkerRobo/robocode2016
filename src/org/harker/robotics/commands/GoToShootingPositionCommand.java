@@ -13,7 +13,7 @@ public class GoToShootingPositionCommand extends CommandGroup {
     
     public  GoToShootingPositionCommand(int positionPassed) {
         addSequential(new TurnToAngleCommand(angles[positionPassed]));
-        addSequential(new DriveDistanceCommand(distances[positionPassed]));
+        addSequential(new DriveDistanceCommand(1.0, distances[positionPassed]));
         addSequential(new TurnToAngleCommand(0));
     }
 }

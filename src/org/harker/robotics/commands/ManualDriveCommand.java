@@ -27,7 +27,7 @@ public class ManualDriveCommand extends Command {
 		double rightSpeed = OI.gamepad.getRightY();
 		leftSpeed = (Math.abs(leftSpeed) > DEADZONE) ? leftSpeed : 0;
 		rightSpeed = (Math.abs(rightSpeed) > DEADZONE) ? rightSpeed : 0;
-		Robot.drivetrain.tankDrive(leftSpeed, rightSpeed);
+		Robot.drivetrain.safeTank(leftSpeed, rightSpeed);
 //		Robot.drivetrain.tankDrive(OI.gamepad.getLeftY(), OI.gamepad.getRightY());
 	}
 	

@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @version 0.1
  */
 public class AutonomousCommand extends CommandGroup {
-
     public static final boolean PREFERRED_DIRECTION = SwitchDefenseCommand.LEFT;
     public  AutonomousCommand() {
     	addParallel(new ProcessImageCommand());

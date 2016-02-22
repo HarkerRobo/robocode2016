@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.command.Command;
  * @version 0.1
  */
 public class HighGoalCommand extends Command {
+    
+    private static final double FIRING_SPEED = 1.0;
 
     /**
      * @param distance the current distance from the robot to the goal
@@ -25,7 +27,7 @@ public class HighGoalCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Robot.shooter.shoot(1);
+        Robot.shooter.shoot(FIRING_SPEED);
     }
 
     // Make this return true when this Command no longer needs to run execute()
