@@ -15,7 +15,7 @@ public class TankDriveCommand extends Command {
 	private double rightSpeed;
 	
     public TankDriveCommand(double left, double right) {
-    	requires(Robot.driveTrain);
+    	requires(Robot.drivetrain);
     	leftSpeed = left;
     	rightSpeed = right;
     }
@@ -26,7 +26,7 @@ public class TankDriveCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.tankDrive(leftSpeed, rightSpeed);
+    	Robot.drivetrain.tankDrive(leftSpeed, rightSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

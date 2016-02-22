@@ -28,10 +28,10 @@ public class ProcessImageCommand extends Command {
 	private int session;
 	private Image frame;
     public ProcessImageCommand() {
-        frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+        /*frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
         session = NIVision.IMAQdxOpenCamera("cam0",
                 NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-        NIVision.IMAQdxStartAcquisition(session);
+        NIVision.IMAQdxStartAcquisition(session);*/
     } 
 
     // Called just before this Command runs the first time
@@ -40,7 +40,7 @@ public class ProcessImageCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	NIVision.IMAQdxGrab(session, frame, 1);
+    	/*NIVision.IMAQdxGrab(session, frame, 1);
         NIVision.imaqWriteFile(frame, "output.png", null);
         BufferedImage in = null;
         
@@ -54,7 +54,7 @@ public class ProcessImageCommand extends Command {
         
         List<Point2D_I32> points = ProcessingUtil.process(in);
         Robot.robot.setGoal(points);
-        //System.out.println((points == null) ? 0 : points.size());
+        //System.out.println((points == null) ? 0 : points.size());*/
     }
 
     // Make this return true when this Command no longer needs to run execute()

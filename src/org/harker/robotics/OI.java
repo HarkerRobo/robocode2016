@@ -3,6 +3,9 @@ package org.harker.robotics;
 import edu.wpi.first.wpilibj.buttons.Button;
 
 import org.harker.robotics.commands.ExampleCommand;
+import org.harker.robotics.commands.ToggleShiftCommand;
+import org.harker.robotics.commands.ToggleShiftLeftCommand;
+import org.harker.robotics.commands.ToggleShiftRightCommand;
 import org.harker.robotics.harkerrobolib.wrappers.GamepadWrapper;
 
 /**
@@ -17,7 +20,9 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
     
     public OI() {
-
+    	gamepad.getButtonX().whenPressed(new ToggleShiftLeftCommand());
+    	gamepad.getButtonB().whenPressed(new ToggleShiftRightCommand());
+    	gamepad.getButtonA().whenPressed(new ToggleShiftCommand());
     }
 }
 

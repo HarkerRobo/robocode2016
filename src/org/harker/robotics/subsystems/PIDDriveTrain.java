@@ -5,10 +5,14 @@ import org.harker.robotics.commands.ManualDriveCommand;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.NamedSendable;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -25,7 +29,10 @@ public class PIDDriveTrain extends Subsystem
     private static Wheel rightFront;
     private static Encoder leftEncoder;
     private static Encoder rightEncoder;
-    private static ADXRS450_Gyro gyro;
+    private static Gyro gyro;
+    
+    private static DoubleSolenoid leftShifter;
+    private static DoubleSolenoid rightShifter;
 
     /**
      * Creates a new PIDDriveTrain with wheels at the default ports. 
@@ -38,7 +45,10 @@ public class PIDDriveTrain extends Subsystem
         rightBack = new Wheel(RobotMap.DT_TALON_RB_CHANNEL);
         leftFront = new Wheel(RobotMap.DT_TALON_LF_CHANNEL, true);
         rightFront = new Wheel(RobotMap.DT_TALON_RF_CHANNEL);
-        gyro = new ADXRS450_Gyro();
+//        gyro = new ADXRS450_Gyro();
+        
+        leftShifter = new DoubleSolenoid(RobotMap.DT_SHIFT_LEFT_IN, RobotMap.DT_SHIFT_LEFT_OUT);
+        rightShifter = new DoubleSolenoid(RobotMap.DT_SHIFT_RIGHT_IN, RobotMap.DT_SHIFT_RIGHT_OUT);
     }
 
     /**
@@ -136,6 +146,12 @@ public class PIDDriveTrain extends Subsystem
     	SmartDashboard.putNumber("DT Left Lower", leftBack.get());
     	SmartDashboard.putNumber("DT Right Upper", rightFront.get());
     	SmartDashboard.putNumber("DT Right Lower", rightBack.get());
+//    	SmartDashboard.putData((NamedSendable)solenoid1);
+//    	SmartDashboard.putData((NamedSendable)solenoid2);
+//    	SmartDashboard.putData((NamedSendable)solenoid3);
+//    	SmartDashboard.putData((NamedSendable)solenoid4);
+//    	SmartDashboard.putData((NamedSendable)solenoid5);
+//    	SmartDashboard.putData((NamedSendable)solenoid6);
     }
     
     public Encoder getLeftEncoder() {
@@ -152,5 +168,28 @@ public class PIDDriveTrain extends Subsystem
     
     public double getHeadingWrapped() {
     	return gyro.getAngle() % 360;
+    }
+    
+    public void toggleLeftShift() {
+    	if(leftShifter.get() == Value.kForward) { 
+    		leftShifter.set(Value.kReverse);
+    	}
+    	else {
+    		leftShifter.set(Value.kForward);
+    	}
+    }
+    
+    public void toggleRightShift() {
+    	if(rightShifter.get() == Value.kForward) { 
+    		rightShifter.set(Value.kReverse);
+    	}
+    	else {
+    		rightShifter.set(Value.kForward);
+    	}
+    }
+    
+    public void toggleShift() {
+    	toggleLeftShift();
+    	toggleRightShift();
     }
 }

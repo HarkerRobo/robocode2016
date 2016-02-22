@@ -17,6 +17,11 @@ public class RobotMap {
         public static final double DT_MAX_ACCELERATION = 0.1;
         public static final double DT_THRESHOLD = 0.1;
         
+        public static final int DT_SHIFT_LEFT_IN = 2;
+        public static final int DT_SHIFT_LEFT_OUT = 5;
+        public static final int DT_SHIFT_RIGHT_IN = 3;
+        public static final int DT_SHIFT_RIGHT_OUT = 4;
+        
         public static final int ST_TALON_UPPER_CHANNEL = 5;
         public static final int ST_TALON_LOWER_CHANNEL = 6;
         
